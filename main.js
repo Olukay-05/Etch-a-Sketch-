@@ -1,4 +1,5 @@
 let color = "black";
+let click = false;
 
 document.addEventListener("DOMContentLoaded", () => {
   createBoard(16);
@@ -9,7 +10,19 @@ document.addEventListener("DOMContentLoaded", () => {
     createBoard(size);
   })
 
-  // colorDiv();
+  document.querySelector("body").addEventListener("click", (e) => {
+    if(e.target.tagName != "BUTTON"){
+      click = !click;
+      let draw = document.querySelector("#draw");
+      if(click){
+        draw.innerHTML = "Time to Draw!";
+      }
+      else{
+        draw.innerHTML = "Pause!"
+      }
+    }
+  })
+
 });
 
 
@@ -49,11 +62,13 @@ const getSize = () => {
 const colorDiv = (event) => {
   let div = event.target;
 
-  if(color == "random"){
-    div.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-  }
-  else{
-    div.style.backgroundColor = "black";
+  if(click){
+    if(color == "random"){
+      div.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+    }
+    else{
+      div.style.backgroundColor = "black";
+    }
   }
 }
 
